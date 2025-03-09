@@ -72,20 +72,20 @@ cmake -j$(proc)               # Build with parallel jobs
 ```
 ## 4. Debug
 To debug your program using `LLDB`, follow these steps:
-1. Ensure your project is compiled with debugging symbols
+1. **Ensure your project is compiled with debugging symbols**  
 Modify your `CMakeLists.txt` to enable debug symbols:
 ```cmake
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
 ```
-2. Start debugging with LLDB
+2. **Start debugging with LLDB**  
 Run LLDB manually to check if it's working:
 ```sh
 lldb ./my_project
 (lldb) breakpoin set --file main.cpp --line 8
 (lldb) run
 ```
-3. Configure VSCode for debugging
+3. **Configure VSCode for debugging**  
 Create a `.vscode/launch.json` file. Then you might see a `Add Configuration` button at the bottom right, you should choose `Code LLDB: Launch`  Here's an example file.
 ```json
 {
@@ -104,6 +104,6 @@ Create a `.vscode/launch.json` file. Then you might see a `Add Configuration` bu
   ]
 }
 ```
-4. Run the debugger in VSCode
+4. **Run the debugger in VSCode**  
 * Open the `Run and Debug` tab in VSCode
 * Select `LLDB Debug` and click `Start Debugging`
