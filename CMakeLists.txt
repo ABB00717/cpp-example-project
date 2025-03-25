@@ -12,3 +12,8 @@ include_directories(include)
 # Source Files
 file(GLOB SOURCES "src/*.cpp")
 add_executable(exampleCppProject ${SOURCES})
+
+# Test Targets
+list(REMOVE_ITEM SOURCES "${CMAKE_SOURCE_DIR}/src/main.cpp")  # remove main.cpp
+file(GLOB TEST_SOURCES "tests/*.cpp")
+add_executable(unit_tests ${SOURCES} ${TEST_SOURCES})
