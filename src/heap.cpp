@@ -1,9 +1,7 @@
 #include "../include/heap.hpp"
-#include <iostream>
 
 void heapDelete(std::vector<int>& A, const int& i) {
     if (i < 0 || i >= A.size()) {
-        std::cout << "Index out of range\n";
         return;
     }
 

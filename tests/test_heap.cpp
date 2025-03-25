@@ -1,91 +1,68 @@
+#include <gtest/gtest.h>
 #include <cassert>
 #include <iostream>
 #include <vector>
 #include "heap.hpp"
 
 bool compareHeap(const std::vector<int>& a, const std::vector<int>& b) {
-    if (a.size() != b.size())
-        return false;
-    for (size_t i = 0; i < a.size(); ++i)
-        if (a[i] != b[i])
-            return false;
-    return true;
+    return a == b;
 }
 
-void printHeap(const std::vector<int>& h) {
-    for (int val : h) std::cout << val << " ";
-    std::cout << "\n";
-}
-
-void testHeapDelete() {
+TEST(HeapTest, DeleteMiddle) {
     std::vector<int> heap = {50, 30, 40, 10, 20, 35, 38};
     heapDelete(heap, 1);
     std::vector<int> expected = {50, 38, 40, 10, 20, 35};
-    assert(compareHeap(heap, expected));
-
-    std::cout << "testHeapDelete passed!\n";
+    EXPECT_TRUE(compareHeap(heap, expected));
 }
 
-void testDeleteFirstElement() {
+TEST(HeapTest, DeleteFirstElement) {
     std::vector<int> heap = {50, 30, 40, 10, 20, 35, 38};
     heapDelete(heap, 0);
-    std::vector<int> expected = { 40, 30, 38, 10, 20, 35 };
-    assert(compareHeap(heap, expected));
-    std::cout << "testDeleteFirstElement passed!\n";
+    std::vector<int> expected = {40, 30, 38, 10, 20, 35};
+    EXPECT_TRUE(compareHeap(heap, expected));
 }
 
-void testDeleteLastElement() {
+TEST(HeapTest, DeleteLastElement) {
     std::vector<int> heap = {50, 30, 40, 10, 20, 35, 38};
     heapDelete(heap, 6);
     std::vector<int> expected = {50, 30, 40, 10, 20, 35};
-    assert(compareHeap(heap, expected));
-    std::cout << "testDeleteLastElement passed!\n";
+    EXPECT_TRUE(compareHeap(heap, expected));
 }
 
-void testDeleteOutOfBounds() {
+TEST(HeapTest, DeleteOutOfBounds) {
     std::vector<int> heap = {50, 30, 40};
-    heapDelete(heap, -1); // should do nothing
-    heapDelete(heap, 3);  // should do nothing
+    // Should do nothing
+    heapDelete(heap, -1);
+    heapDelete(heap, 3);
     std::vector<int> expected = {50, 30, 40};
-    assert(compareHeap(heap, expected));
-    std::cout << "testDeleteOutOfBounds passed!\n";
+    EXPECT_TRUE(compareHeap(heap, expected));
 }
 
-void testDeleteTriggersIncreaseKey() {
+TEST(HeapTest, DeleteTriggersIncreaseKey) {
     std::vector<int> heap = {55, 20, 40, 10, 5, 35, 38};
-    heap[1] = 3; // simulate manually breaking the heap property upward
+    heap[1] = 3; // simulate break
     heapDelete(heap, 4); // remove a leaf node, heap should restore
     std::vector<int> expected = {55, 38, 40, 10, 3, 35};
-    assert(compareHeap(heap, expected));
-    std::cout << "testDeleteTriggersIncreaseKey passed!\n";
+    EXPECT_TRUE(compareHeap(heap, expected));
 }
 
-void testDeleteSingleElement() {
+TEST(HeapTest, DeleteSingleElement) {
     std::vector<int> heap = {42};
     heapDelete(heap, 0);
     std::vector<int> expected = {};
-    assert(compareHeap(heap, expected));
-    std::cout << "testDeleteSingleElement passed!\n";
+    EXPECT_TRUE(compareHeap(heap, expected));
 }
 
-void testDeleteEmptyHeap() {
+TEST(HeapTest, DeleteEmptyHeap) {
     std::vector<int> heap = {};
     heapDelete(heap, 0);
     std::vector<int> expected = {};
-    assert(compareHeap(heap, expected));
-    std::cout << "testDeleteEmptyHeap passed!\n";
+    EXPECT_TRUE(compareHeap(heap, expected));
 }
 
+// Google Test main entry
 int main() {
-    testHeapDelete();
-    testDeleteFirstElement();
-    testDeleteLastElement();
-    testDeleteOutOfBounds();
-    testDeleteTriggersIncreaseKey();
-    testDeleteSingleElement();
-    testDeleteEmptyHeap();
-
-    std::cout << "All tests passed!\n";
-    return 0;
+    ::testing::InitGoogleTest();
+    return RUN_ALL_TESTS();
 }
 
