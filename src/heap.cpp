@@ -9,13 +9,13 @@ void heapDelete(std::vector<int>& A, const int& i) {
     A.pop_back();     // Delete the last node
 
     if (i > 0 && A[i] > A[parent(i)]) {
-        heapIncreaseKey(A, i);  // Restore max-heap property upwards
+        bubbleUp(A, i);  // Restore max-heap property upwards
     } else {
         maxHeapify(A, i);  // Restore max-heap property downwards
     }
 }
 
-void heapIncreaseKey(std::vector<int>& A, int i) {
+void bubbleUp(std::vector<int>& A, int i) {
     while (i > 0 && A[i] > A[parent(i)]) {
         std::swap(A[i], A[parent(i)]);
         i = parent(i);

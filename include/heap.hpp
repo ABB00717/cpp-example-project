@@ -1,7 +1,7 @@
 #include <vector>
 
 void heapDelete(std::vector<int>& heap, const int& i);
-void heapIncreaseKey(std::vector<int>& heap, int i);
+void bubbleUp(std::vector<int>& heap, int i);
 void maxHeapify(std::vector<int>& heap, int i);
 
 inline int parent(int i) {
