@@ -1,3 +1,6 @@
+#ifndef HEAP_HPP
+#define HEAP_HPP
+
 #include <vector>
 
 void heapDelete(std::vector<int>& heap, const int& i);
@@ -17,3 +20,5 @@ inline int left(int i) {
 inline int right(int i) {
     return 2 * i + 2;
 }
+
+#endif
